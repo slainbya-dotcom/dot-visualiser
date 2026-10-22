@@ -1,0 +1,49 @@
+[package]
+name = "dot-visualiser"
+version = "1.0.0"
+description = "A lightweight dot-matrix music visualiser"
+edition = "2021"
+
+[lib]
+# The `_lib` suffix avoids a name clash with the binary on Windows.
+name = "dot_visualiser_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# `macos-private-api` is required for a truly transparent window on macOS.
+tauri = { version = "2", features = ["macos-private-api", "tray-icon"] }
+tauri-plugin-window-state = "2"
+tauri-plugin-single-instance = "2"
+serde_json = "1"
+serde = { version = "1", features = ["derive"] }
+# Listening to the sound (system audio on Windows, an input device on macOS)
+cpal = "0.15"
+# Splitting the sound into frequencies
+rustfft = "6"
+
+# Windows: what's playing (for the track line; the media API behind the volume flyout).
+# Core Audio features are used by the shared media code. Pinned: the `windows` crate changes its API between versions.
+[target.'cfg(windows)'.dependencies.windows]
+version = "=0.58.0"
+features = [
+  "Foundation",
+  "Media_Control",
+  "Win32_Foundation",
+  "Win32_Media_Audio",
+  "Win32_Media_Audio_Endpoints",
+  "Win32_System_Com",
+  "Win32_System_Com_StructuredStorage",
+  "Win32_System_Variant",
+  "Win32_UI_Shell_PropertiesSystem",
+  "Win32_Devices_FunctionDiscovery",
+]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

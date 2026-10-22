@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Shown by macOS the first time Dot Visualiser listens to a sound input. -->
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Dot Visualiser listens to the sound input you choose so it can draw it. Nothing is recorded or sent anywhere.</string>
+  <!-- Shown once when it asks Spotify / Music what's playing (for the track line). -->
+  <key>NSAppleEventsUsageDescription</key>
+  <string>Dot Visualiser asks Spotify and Music what's playing so it can show the track name.</string>
+</dict>
+</plist>
